@@ -1,29 +1,28 @@
-import { useState } from 'react';
-import reactLogo from './assets/react.svg';
-import viteLogo from '/vite.svg';
 import './App.css';
+import { ThemeProvider } from '@/components/theme/theme-provider';
+import { PromptField } from './components/ui/promptField';
 
 function App() {
-  const [count, setCount] = useState(0);
-
   return (
     <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>count is {count}</button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">Click on the Vite and React logos to learn more</p>
+      <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
+        <div className="relative h-screen w-screen overflow-hidden">
+          <div className="grid place-items-center h-full w-full">
+            {/* <div className="absolute top-4 right-4 z-10">
+              <ModeToggle />
+            </div> */}
+            <h1 className="text-4xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-gray-400 via-slate-300 to-gray-500">
+              Soon...
+            </h1>
+          </div>
+
+          <PromptField
+            onSubmit={(message) => {
+              console.log('User input:', message);
+            }}
+          />
+        </div>
+      </ThemeProvider>
     </>
   );
 }
