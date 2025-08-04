@@ -1,4 +1,5 @@
 import { PromptField } from '@/components/ui/promptField';
+import { toast } from 'sonner';
 
 export default function Home() {
   return (
@@ -7,7 +8,7 @@ export default function Home() {
         {/* <div className="absolute top-4 right-4 z-10">
                   <ModeToggle />
                 </div> */}
-        <h1 className="text-4xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-gray-400 via-slate-300 to-gray-500">
+        <h1 className="text-4xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-muted-foreground via-foreground to-muted-foreground">
           Soon...
         </h1>
       </div>
@@ -15,6 +16,14 @@ export default function Home() {
       <PromptField
         onSubmit={(message) => {
           console.log('User input:', message);
+
+          toast(message, {
+            // description: `You typed: "${message}"`,
+            action: {
+              label: 'Close',
+              onClick: () => console.log('Toast closed'),
+            },
+          });
         }}
       />
     </div>
