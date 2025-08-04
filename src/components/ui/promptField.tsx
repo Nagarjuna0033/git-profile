@@ -20,18 +20,18 @@ export function PromptField({ onSubmit, placeholder = 'Username' }: PromptFieldP
     <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-full max-w-2xl p-4">
       <form
         onSubmit={handleSubmit}
-        className="rounded-xl border border-neutral-700 bg-[#0d0d0d] focus-within:ring-1 focus-within:ring-blue-500 focus-within:ring-offset-0 transition outline-none"
+        className="rounded-xl border border-border bg-background focus-within:ring-1 focus-within:ring-ring transition outline-none"
       >
         <div className="p-3 space-y-3">
           <input
             value={input}
             onChange={(e) => setInput(e.target.value)}
             placeholder={placeholder}
-            className="w-full resize-none bg-transparent text-white placeholder-neutral-500 focus:outline-none"
+            className="w-full resize-none bg-transparent text-foreground placeholder-muted-foreground focus:outline-none"
           />
 
-          <div className="flex items-center justify-between text-sm text-neutral-400">
-            <div className="flex items-center gap-1 hover:text-white cursor-pointer">
+          <div className="flex items-center justify-between text-sm text-muted-foreground">
+            <div className="flex items-center gap-1 hover:text-foreground cursor-pointer">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 className="w-4 h-4"
@@ -55,7 +55,7 @@ export function PromptField({ onSubmit, placeholder = 'Username' }: PromptFieldP
               aria-label="Send"
               disabled={!input.trim()}
               className={`w-11 h-11 rounded-full flex items-center justify-center shadow ${
-                input.trim() ? 'bg-ghost-600 hover:bg-ghost-700' : 'bg-ghost-600 cursor-not-allowed'
+                input.trim() ? 'bg-accent hover:bg-accent/80' : 'opacity-50 cursor-not-allowed'
               }`}
             >
               <svg
