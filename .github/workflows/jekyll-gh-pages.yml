@@ -31,7 +31,7 @@ jobs:
 
       - name: Build
         env:
-          VITE_GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          VITE_GITHUB_TOKEN: ${{ secrets.VITE_GITHUB_TOKEN }}
         run: npm run build
 
       - name: Upload GitHub Pages artifact
