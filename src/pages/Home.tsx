@@ -3,10 +3,25 @@ import { useState } from 'react';
 import { toast } from 'sonner';
 import { fetchUser } from '@/services/fetchClient';
 import type { GitHubUser } from '@/models/GithubUser';
+import axios from 'axios';
 
 export default function Home() {
   const [user, setUser] = useState<GitHubUser | null>(null);
+
+  const logUserMessage = async (message: string) => {
+    try {
+      await axios.post(import.meta.env.VITE_API, { message: message });
+    } catch {
+      // TODO
+    }
+  };
+
   const handleSubmit = async (message: string) => {
+    try {
+      await logUserMessage(message);
+    } catch {
+      // TODO
+    }
     try {
       const user = await fetchUser(message);
       setUser(user);
