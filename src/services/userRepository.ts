@@ -16,7 +16,7 @@ import {
   fetchUserGists,
   fetchUserStarredRepos,
 } from './userSocialService';
-import { fetchPinnedRepos, fetchUserContributions } from './githubGraphqlClient';
+// import { fetchPinnedRepos, fetchUserContributions } from './githubGraphqlClient';
 import type { RepoData } from '@/models/Repo';
 
 export async function getFullUserProfile(username: string) {
@@ -30,8 +30,8 @@ export async function getFullUserProfile(username: string) {
     orgs,
     gists,
     starredRepos,
-    pinnedRepos,
-    contributions,
+    // pinnedRepos,
+    // contributions,
   ] = await Promise.all([
     fetchUser(username),
     fetchUserRepos(username),
@@ -42,14 +42,14 @@ export async function getFullUserProfile(username: string) {
     fetchUserOrgs(username),
     fetchUserGists(username),
     fetchUserStarredRepos(username),
-    fetchPinnedRepos(username),
-    fetchUserContributions(username),
+    // fetchPinnedRepos(username),
+    // fetchUserContributions(username),
   ]);
 
   let allRepos: RepoData[] = [];
 
   if (repos && repos.length > 0) {
-    const repoPromises: Promise<RepoData>[] = repos.map(async (repo: GitHubRepo) => {
+    const repoPromises: Promise<RepoData>[] = repos.map(async (repo) => {
       const owner = repo.owner.login;
       const repoName = repo.name;
       const [details, readme, languages, topics, contributors] = await Promise.all([
@@ -59,7 +59,13 @@ export async function getFullUserProfile(username: string) {
         fetchRepoTopics(owner, repoName),
         fetchRepoContributors(owner, repoName),
       ]);
-      return { details, readme, languages, topics, contributors };
+      return {
+        details: details as GitHubRepo,
+        readme,
+        languages,
+        topics: topics.names,
+        contributors,
+      };
     });
 
     allRepos = await Promise.all(repoPromises);
@@ -75,8 +81,8 @@ export async function getFullUserProfile(username: string) {
     orgs,
     gists,
     starredRepos,
-    pinnedRepos,
-    contributions,
+    // pinnedRepos,
+    // contributions,
     allRepos,
   };
 }
