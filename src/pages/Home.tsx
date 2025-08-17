@@ -2,6 +2,8 @@ import { PromptField } from '@/components/ui/promptField';
 import { useState } from 'react';
 import { toast } from 'sonner';
 import { fetchUser } from '@/services/fetchClient';
+import { getFullUserProfile } from '@/services/userRepository';
+
 import type { GitHubUser } from '@/models/GithubUser';
 import axios from 'axios';
 
@@ -24,9 +26,16 @@ export default function Home() {
     }
     try {
       const user = await fetchUser(message);
+      if (!user) {
+        return;
+      }
       setUser(user);
+
+      const fullProfile = await getFullUserProfile(message);
+      console.log(fullProfile);
     } catch (error) {
       toast.error(error instanceof Error ? error.message : String(error));
+      setUser(null);
     }
   };
 
